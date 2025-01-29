@@ -15,10 +15,12 @@ class Fan {
 	private static int idCount = 1;
 	private int id = 1;
 	
+	// Constructor
 	public Fan() {
 		this.id = idCount++;
 	}
 
+	// Getters and Setters
 	public int getSpeed() {
 		return speed;
 	}
@@ -51,7 +53,7 @@ class Fan {
 		this.color = color;
 	}
 
-	@Override
+	// To String
 	public String toString() {
 		if(isOn) {
 			return "Fan " + id + " speed:" + speed + " color:" + color + " radius:" + radius;
