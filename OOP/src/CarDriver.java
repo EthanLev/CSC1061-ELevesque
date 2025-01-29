@@ -12,7 +12,7 @@ public class CarDriver {
 		System.out.println(car.getRadio());
 		car.setWheels(15.5, true);
 		CarWheel[] wheels = car.getWheels();
-		for(CarWheel wheel : wheels) {
+		for(CarWheel wheel : wheels) { //  for each wheel object in wheels array
 			System.out.println(wheel);
 		}
 	}
