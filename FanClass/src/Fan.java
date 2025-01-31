@@ -1,26 +1,21 @@
 
-class Fan {
-	public static final int SLOW = 1;
-	public static final int MEDIUM = 2;
-	public static final int FAST = 3;
+public class Fan {
+	private static final int SLOW = 1;
+	private static final int MEDIUM = 2;
+	private static final int FAST = 3;
 	
 	private int speed = SLOW;
-	
-	private boolean isOn = false;
-	
-	private double radius = 5;
-	
-	private String color = "blue";
-	
+	private boolean isOn;
+	private double radius = 5.0;
+	String color = "blue";
 	private static int idCount = 1;
-	private int id = 1;
+	private final int id;
 	
-	// Constructor
 	public Fan() {
 		this.id = idCount++;
 	}
 
-	// Getters and Setters
+
 	public int getSpeed() {
 		return speed;
 	}
@@ -33,8 +28,8 @@ class Fan {
 		return isOn;
 	}
 
-	public void setOn(boolean on) {
-		this.isOn = on;
+	public void setOn(boolean isOn) {
+		this.isOn = isOn;
 	}
 
 	public double getRadius() {
@@ -53,7 +48,6 @@ class Fan {
 		this.color = color;
 	}
 
-	// To String
 	public String toString() {
 		if(isOn) {
 			return "Fan " + id + " speed:" + speed + " color:" + color + " radius:" + radius;
@@ -63,7 +57,4 @@ class Fan {
 	}
 	
 	
-	
-	
-
 }
