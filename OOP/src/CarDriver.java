@@ -2,18 +2,16 @@
 public class CarDriver {
 
 	public static void main(String[] args) {
-		Car car = new Car("BMW", 2024, "Pink", 1000, 50.0, false, true);
-						
-		System.out.println(car.toString());
-		//car.drive(1);
-		car.clean();
-		car.getRadio().setVolume(5);
+		Car car = new Car("BMW", 2024, "Pink", 1000, 90.0, false);
 		
-		System.out.println(car.getRadio());
-		car.setWheels(15.5, true);
-		CarWheel[] wheels = car.getWheels();
-		for(CarWheel wheel : wheels) { //  for each wheel object in wheels array
-			System.out.println(wheel);
-		}
+		Car car1 = new Car("Audi", 2025, "Black", 500, 100.0, true);
+		
+		Car car2 = new Car();
+		
+		System.out.println(car.toString());
+		System.out.println();
+		System.out.println(car1.toString());
+		System.out.println();
+		System.out.println(car2.toString());
 	}
 }
