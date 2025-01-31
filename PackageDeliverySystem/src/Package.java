@@ -1,26 +1,20 @@
 import java.util.Random;
 
 public class Package {
-	// Properties
 	private Destination destination;
+	private double weight; // kilograms
+	private double costPerKg; // per kilogram
+	private String status;
+	private int trackingNum;
 	
-	private double weight = 0.0; // Kg
-	private double cost = 0.0; // per Kg
-	
-	private String status = "";
-	
-	private int trackingNum = 0;
-	
-	// Constructor
-	public Package(Destination destination, double weight, double cost, String status) {
+	public Package(Destination destination, double weight, double costPerKg, String status) {
 		this.destination = destination;
 		this.weight = weight;
-		this.cost = cost;
+		this.costPerKg = costPerKg;
 		this.status = status;
 		this.trackingNum = generateTrackingNumber();
 	}
 	
-	// Methods
 	public String getStatus() {
 		return status;
 	}
@@ -29,24 +23,29 @@ public class Package {
 		this.status = status;
 	}
 	
-	public int getTrackingNumber() {
+	public int getTrackingNumber() {		
 		return trackingNum;
 	}
 	
 	private int generateTrackingNumber() {
 		Random rnd = new Random();
-		return rnd.nextInt(900000000);
+		
+		return 100000000 + rnd.nextInt(100000000);
 	}
 	
-	private void calculateCost() {
+	public double calculateCost() {
+		if (weight <= 0) {
+			return 0.0;
+		}
 		
+		return costPerKg * weight;
 	}
 
 	@Override
 	public String toString() {
-		return "Package destination=" + destination + ", weight=" + weight + ", cost=" + cost + ", status=" + status
-				+ ", trackingNum=" + trackingNum;
+		return "\n" + destination.toString() + "\nWeight: " + weight +
+				"\nCost per Kg: " + costPerKg +
+				"\nStatus: " + status +
+				"\nTracking Number: " + trackingNum;
 	}
-	
-	
 }

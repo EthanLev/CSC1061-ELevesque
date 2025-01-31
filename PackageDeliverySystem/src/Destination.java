@@ -1,18 +1,16 @@
 
 public class Destination {
-	// Properties
-	private String address = "";
-	private String city = "";
-	private String state = "";
+	private String address;
+	private String city;
+	private String state;
 	
-	// Constructor
 	public Destination(String address, String city, String state) {
 		this.address = address;
 		this.city = city;
 		this.state = state;
 	}
 
-	// Getters and Setters
+	
 	public String getAddress() {
 		return address;
 	}
@@ -40,8 +38,6 @@ public class Destination {
 	
 	
 	public String toString() {
-		return "Destination address=" + address + ", city=" + city + ", state=" + state;
+		return address + ", " + city + ", " + state;
 	}
-	
-	
 }

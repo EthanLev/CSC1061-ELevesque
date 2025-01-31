@@ -1,21 +1,34 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class Shipment {
 	private List<Package> packages;
 	
 	public Shipment() {
-		
+		packages = new ArrayList<>();
 	}
 	
-	private void addPackage(Package pack) {
-		packages.add(pack);
+	public void addPackage(Package pkg) {
+		packages.add(pkg);
 	}
 	
 	public double getTotalCost() {
-		// for each package in package list, get cost, add to totalCost
-		for()
-		return totalCost;
+		double total = 0;
+		
+		for (Package pkg : packages) {
+			total += pkg.calculateCost();
+		}
+		
+		return total;
 	}
 	
-	
+	public void updateStatus(String newStatus) {
+		for (Package pkg : packages) {
+			pkg.updateStatus(newStatus);
+		}
+	}
+
+	public String toString() {
+		return "\nShipment packages: " + packages;
+	}
 }
