@@ -5,7 +5,7 @@ public class AccountsPayable {
 	public static void main(String[] args) {
 		Scanner input = new Scanner(System.in);
 		
-		Employee[] payableEmployees = new Employee[1];
+		Employee[] payableEmployees = new Employee[6];
 		
 		for (int i = 0; i < payableEmployees.length; i ++) {
 			System.out.println("Enter employees first name: ");
@@ -61,12 +61,28 @@ public class AccountsPayable {
 		for (Employee employee : payableEmployees) {
 			printDetails(employee);
 		}
+		
+		for (Employee employee : payableEmployees) {
+			if (employee instanceof BasePlusCommissionEmployee) {
+				double basePay = ((BasePlusCommissionEmployee) employee).getBasePay();
+				
+				((BasePlusCommissionEmployee) employee).setBasePay(basePay * 1.1);
+			}
+		}
+		
+		for (Employee employee : payableEmployees) {
+			printDetails(employee);
+		}
 	}
 	
 	public static void printDetails(Employee employee) {
-		//System.out.println(employee.toString());
+		//System.out.println(employee.toString()); // ToString Method
 		System.out.println(employee.getFirstName() + " " + employee.getLastName());
 		System.out.println("SSN:" + employee.getSsNum());
 		System.out.println("Salary: " + employee.getPaymentAmount());
+	}
+	
+	public static void printToString(Employee employee) {
+		System.out.println(employee);
 	}
 }
