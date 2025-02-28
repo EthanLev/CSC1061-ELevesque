@@ -1,11 +1,19 @@
-
+/**
+ * Person class with basic contact information
+ */
 public class Person {
 	private String name;
 	private String address;
 	private String phoneNum;
 	private String email;
 	
-	
+	/**
+	 * Constructor for Person data
+	 * @param name The name of the person
+	 * @param address The address of the person
+	 * @param phoneNum The phone number of the person
+	 * @param email The email of the person
+	 */
 	public Person(String name, String address, String phoneNum, String email) {
 		this.name = name;
 		this.address = address;
@@ -47,9 +55,14 @@ public class Person {
 	}
 
 
-
-
+	/**
+	 * @return String of Person object
+	 */
+	@Override
 	public String toString() {
-		return "Name: " + name + "\nAddress: " + address + "\nPhone: " + phoneNum + "\nEmail: " + email;
+		return "Name: " + name +
+				"\nAddress: " + address + 
+				"\nPhone: " + phoneNum + 
+				"\nEmail: " + email;
 	}
 }

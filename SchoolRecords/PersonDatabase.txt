@@ -1,1 +1,56 @@
+Student
+Name: Ethan
+Address: 123 St
+Phone: 123-4567
+Email: ethan@gmail.com
+Status: SENIOR
+
+Student
+Name: Bob
+Address: 456 St
+Phone: 987-6543
+Email: bob@gmail.com
+Status: SOPHOMORE
+
+Faculty
+Name: Maggie
+Address: 789 St
+Phone: 555-5555
+Email: maggie@gmail.com
+Office: Office 1
+Salary: 80000.0
+Hired Date: 2010
+Office Hours: 9AM-5PM
+Rank: JUNIOR
+
+Faculty
+Name: Jason
+Address: 159 St
+Phone: 666-6666
+Email: jason@gmail.com
+Office: Office 2
+Salary: 75000.0
+Hired Date: 2012
+Office Hours: 10AM-4PM
+Rank: SENIOR
+
+Staff
+Name: April
+Address: 753 St
+Phone: 777-7777
+Email: april@gmail.com
+Office: Office 1
+Salary: 50000.0
+Hired Date: 2015
+Title: Manager
+
+Staff
+Name: Jane
+Address: 951 St
+Phone: 888-8888
+Email: jane@gmail.com
+Office: Office 2
+Salary: 48000.0
+Hired Date: 2018
+Title: Assistant
 

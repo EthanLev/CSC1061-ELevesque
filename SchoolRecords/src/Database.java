@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 
 /**
@@ -28,10 +29,7 @@ public class Database {
                 if (fileCreated) {
                     System.out.println("File created: " + PERSON_FILE);
                 }
-            }
-            
-            System.out.println("File already exists.\n" + file.getAbsolutePath());
-            
+            }            
         } catch (IOException e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
@@ -70,7 +68,20 @@ public class Database {
 	 */
 	public ArrayList<Person> readDatabase() {
 		ArrayList<Person> people = new ArrayList<>();
+		Scanner input = null;
 		
-		return null;
+		try {
+			input = new Scanner(file);
+		} catch (FileNotFoundException e) {
+			System.out.println(e.getMessage());
+			System.exit(-1);
+		} while (input.hasNextLine()) {
+			String line = input.nextLine();
+			people.add(new Person(line,"","",""));
+			System.out.println(line);
+		}
+		
+		input.close();
+		return people;
 	}
 }
