@@ -20,17 +20,26 @@ public class SmartThermostat implements ISmartDevice {
 	
 	@Override
 	public String turnOn() {
+		isOn = true;
 		return "Thermostat turned on";
 	}
 
 	@Override
 	public String turnOff() {
+		isOn = false;
 		return "Thermostat turned off";
 	}
 
 	@Override
 	public String getStatus() {
-		return "Thermostat Status: " + isOn;
+		String str = "";
+		
+		if (isOn) {
+			str = "Smart Thermostat Status: ON";
+		} else {
+			str = "Smart Thermostat Status: OFF";
+		}
+		return str;
 	}
 	
 	/**
@@ -44,6 +53,6 @@ public class SmartThermostat implements ISmartDevice {
 			return "Temperature set to " + temperature;
 		}
 		
-		return "Thermostat is turned off";
+		return "Thermostat is turned off, can not change temperature";
 	}
 }

@@ -20,17 +20,26 @@ public class SecurityCamera implements ISmartDevice {
 	
 	@Override
 	public String turnOn() {
+		isOn = true;
 		return "Security Camera is turned on";
 	}
 
 	@Override
 	public String turnOff() {
+		isOn = false;
 		return "Security Camera is turned off";
 	}
 
 	@Override
 	public String getStatus() {
-		return "Security Camera Status: " + isOn;
+		String str = "";
+		
+		if (isOn) {
+			str = "Security Camera Status: ON";
+		} else {
+			str = "Security Camera Status: OFF";
+		}
+		return str;
 	}
 
 	/**
@@ -43,7 +52,7 @@ public class SecurityCamera implements ISmartDevice {
 			return "Security Camera is recording";
 		} else {
 			isRecording = false;
-			return "Security Camera is not recording";
+			return "Security Camera is off and not recording";
 		}
 	}
 }

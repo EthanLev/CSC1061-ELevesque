@@ -20,17 +20,26 @@ public class SmartLight implements ISmartDevice {
 	
 	@Override
 	public String turnOn() {
+		isOn = true;
 		return "Smart Light turned on";
 	}
 
 	@Override
 	public String turnOff() {
+		isOn = false;
 		return "Smart Light turned off";
 	}
 
 	@Override
 	public String getStatus() {
-		return "Smart Light Status: " + isOn;
+		String str = "";
+		
+		if (isOn) {
+			str = "Smart Light Status: ON";
+		} else {
+			str = "Smart Light Status: OFF";
+		}
+		return str;
 	}
 	
 	/**
@@ -41,9 +50,9 @@ public class SmartLight implements ISmartDevice {
 	public String setBrightness(int level) {
 		if (isOn) {
 			brightness = level;
-			return "Brightness set to " + brightness;
+			return "Smart Light brightness set to " + brightness;
 		}
 		
-		return "Light is turned off";
+		return "Smart Light is turned off, can not adjust brightness";
 	}
 }

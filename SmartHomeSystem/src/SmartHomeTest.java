@@ -12,8 +12,14 @@ public class SmartHomeTest {
 		hub.add(thermostat);
 		hub.add(camera);
 		
-		hub.turnAllOn();
-		hub.turnAllOff();
-		hub.showAllStatuses();
+		System.out.println(hub.turnAllOn());
+		
+		System.out.println(light.setBrightness(5));
+		System.out.println(thermostat.setTemp(69));
+		System.out.println(camera.toggleRecording());
+		
+		System.out.println(hub.showAllStatuses());
+		
+		System.out.println(hub.turnAllOff());
 	}
 }

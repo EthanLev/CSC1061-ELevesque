@@ -17,7 +17,7 @@ public class SmartHomeHub<E extends ISmartDevice> extends ArrayList<E> {
 			device.turnOn();
 		}
 		
-		return "All smart devices turned on";
+		return "All smart devices turned on\n";
 	}
 	
 	/**
@@ -30,7 +30,7 @@ public class SmartHomeHub<E extends ISmartDevice> extends ArrayList<E> {
 			device.turnOff();
 		}
 		
-		return "All smart devices turned off";
+		return "All smart devices turned off\n";
 	}
 	
 	/**
@@ -38,12 +38,12 @@ public class SmartHomeHub<E extends ISmartDevice> extends ArrayList<E> {
 	 * @return Returns status of all devices in hub
 	 */
 	public String showAllStatuses() {
+		String status = "";
+		
 		for (ISmartDevice device : this) {
-			System.out.println(device.getStatus());
-			String str = device.getStatus();
-			return str;
+			status = "\n" + device.getStatus() + "\n";
 		}
 
-		return null;
+		return status;
 	}
 }
