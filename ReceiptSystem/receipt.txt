@@ -1,0 +1,6 @@
+Shirt - Price: $15.0, Quantity: 2, Total: $30.0
+Pants - Price: $25.0, Quantity: 1, Total: $25.0
+Hat - Price: $10.0, Quantity: 1, Total: $10.0
+Shirt, 15.0, 2, 30.0
+Pants, 25.0, 1, 25.0
+Hat, 10.0, 1, 10.0
