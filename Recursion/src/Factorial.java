@@ -5,7 +5,7 @@ public class Factorial {
 		System.out.println("The answer is " + factorial(4));
 	}
 	
-	public static int factorial(int num) {
+	public static long factorial(int num) {
 		if (num == 0) { // Base case
 			return 1;
 		} else {
