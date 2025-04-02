@@ -54,10 +54,56 @@ public class BookTree implements Iterable<BookNode> {
 		
 		return false;
 	}
+	
 
+	private class RecursiveIterator implements Iterator<BookNode> {
+		Deque<BookNode> queue = new ArrayDeque<>();
+		
+		public RecursiveIterator(BookNode node) {
+			preorder(node);
+			postorder(root);
+		}
+		
+		private void preorder(BookNode node) {
+			queue.addLast(node);
+			
+			// remove nodes 
+//			if(node.getChildNodes() == null || node.getChildNodes().isEmpty()) {
+//				return;
+//			}
+			
+			for (BookNode child : node.getChildNodes()) {
+				preorder(child);
+			}
+		}
+		
+		private void postorder(BookNode node) {
+			// remove nodes 
+//			if(node.getChildNodes() == null || node.getChildNodes().isEmpty()) {
+//				return;
+//			}
+			
+			for (BookNode child : node.getChildNodes()) {
+				postorder(child);
+			}
+			
+			queue.addLast(node);
+		}
+
+		@Override
+		public boolean hasNext() {
+			return !queue.isEmpty();
+		}
+
+		@Override
+		public BookNode next() {
+			return queue.removeFirst();
+		}
+	}
+	
 	@Override
 	public Iterator<BookNode> iterator() {
-		return new BookNodeIterator(root);
+		return new RecursiveIterator(root);
 	}
 	
 	private class BookNodeIterator implements Iterator<BookNode> {
