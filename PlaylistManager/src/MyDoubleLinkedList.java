@@ -43,8 +43,9 @@ public class MyDoubleLinkedList<E> implements List<E> {
 	private int size;            // keeps track of the number of elements
 	private Node head;           // reference to the first node
 	private Node tail;            // Doubly reference to the last node
+	
 	/**
-	 *
+	 * Constructor
 	 */
 	public MyDoubleLinkedList() {
 		head = null;
@@ -61,7 +62,7 @@ public class MyDoubleLinkedList<E> implements List<E> {
 		} else {
 			tail.next = newNode;
 			newNode.prev = tail;
-			tail = newNode;
+			//tail = newNode; // Duplicate
 			
 //			Node node = head;
 //			// loop until the last node
