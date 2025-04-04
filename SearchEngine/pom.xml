@@ -5,11 +5,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>edu.frcc.csc1061jsp25</groupId>
-  <artifactId>GettingToPhilosophy</artifactId>
+  <artifactId>SearchEngine</artifactId>
   <version>0.0.1-SNAPSHOT</version>
 
-  <name>GettingToPhilosophy</name>
-  <description>A simple GettingToPhilosophy.</description>
+  <name>SearchEngine</name>
+  <description>A simple SearchEngine.</description>
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
 
@@ -30,7 +30,7 @@
     	<groupId>org.jsoup</groupId>
     	<artifactId>jsoup</artifactId>
     	<version>1.19.1</version>
-	</dependency>
+    </dependency>
   </dependencies>
 
   <build>
