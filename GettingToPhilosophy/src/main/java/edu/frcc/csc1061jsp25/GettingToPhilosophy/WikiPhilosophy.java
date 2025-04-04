@@ -4,7 +4,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jsoup.Connection;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.nodes.Node;
+import org.jsoup.nodes.TextNode;
 import org.jsoup.select.Elements;
 
 public class WikiPhilosophy {
@@ -29,7 +34,7 @@ public class WikiPhilosophy {
         String destination = "https://en.wikipedia.org/wiki/Philosophy";
         String source = "https://en.wikipedia.org/wiki/Java_(programming_language)";
 
-        testConjecture(destination, source, 10);
+        testConjecture(destination, source, 20);
     }
 
     /**
@@ -63,8 +68,17 @@ public class WikiPhilosophy {
                 
                 // TODO: FILL THIS IN!
             	// If this node is a text node make sure you are not within parentheses
+            	// Use stack, check for open parentheses and push it on, when closed parentheses, pop out of stack
+            	// If stack is empty, no parentheses
+            	if (node instanceof TextNode) {
+            		
+            	}
             	
             	// If this node has a link you can get it by accessing the href attribute in the node
+            	String link = node.attr("href");
+            	if (node.hasAttr(link)) {
+            		
+            	}
             	
             	// If the link is not null and not an empty string and does not start with a # sign 
             	// and is not within parentheses, follow the link recursively by calling testConjecture() 
