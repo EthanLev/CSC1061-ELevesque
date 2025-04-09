@@ -112,6 +112,13 @@ public class MyTreeMap<K, V> implements Map<K, V>, Iterable<K> {
 		return null;
 	}
 
+	// HOMEWORK 
+	// Download and use TreeMapTest from D2L
+	// Copy code to own tree map
+	// Case 1: if remove is a leaf node, keep track of parent, cut left or right side of parent
+	// Case 2: if remove is one child, change child to parent
+	// Case 3: if two children
+	// Use recursive ?
 	@Override
 	public V remove(Object key) {
 		return null;
