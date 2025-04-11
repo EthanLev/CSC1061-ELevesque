@@ -33,7 +33,7 @@ public class WikiFetcher {
 		// select the content text and pull out the paragraphs.
 		Element content = doc.getElementById("mw-content-text");
 
-		Elements paras = content.select("p");
+		Elements paras = content.select("p"); // Select only paragraphs, not images or side bars
 		return paras;
 	}
 
@@ -85,12 +85,6 @@ public class WikiFetcher {
 	 * @throws IOException
 	 */
 	public static void main(String[] args) throws IOException {
-		WikiFetcher wf = new WikiFetcher();
-		String url = "https://en.wikipedia.org/wiki/Java_(programming_language)";
-		Elements paragraphs = wf.readWikipedia(url);
-
-		for (Element paragraph: paragraphs) {
-			System.out.println(paragraph);
-		}
+		
 	}
 }

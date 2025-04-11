@@ -25,7 +25,11 @@ public class Search {
 		
 		//counter.printCount();
 		//index.printIndex();
-		
-		System.out.println("Enter Search Term: ");
+	
+		while (true) {
+			System.out.println("Enter Search Term: ");
+			String word = scnr.next();
+			System.out.println(index.get(word));
+		}
 	}
 }

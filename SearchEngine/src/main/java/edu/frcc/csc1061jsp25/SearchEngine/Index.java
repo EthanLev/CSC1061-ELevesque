@@ -22,13 +22,20 @@ public class Index {
 		index.put(word, set); // Add word in the term counter set
 	}
 	
-	public void get(String word) {
+	public String get(String word) {
 		Set<TermCounter> set = index.get(word);
+		
+		if (set == null) {
+			return "";
+		}
+		
 		String str = "";
 		
 		for (TermCounter tc : set) { 
 			str += tc.getLabel() + "\n";
 		}
+		
+		return str;
 	}
 	
 	public void indexPage(String url, Elements paragraphs) {
