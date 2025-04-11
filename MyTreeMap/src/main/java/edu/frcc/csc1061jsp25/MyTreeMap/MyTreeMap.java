@@ -2,6 +2,7 @@ package edu.frcc.csc1061jsp25.MyTreeMap;
 
 import java.util.ArrayDeque;
 import java.util.Collection;
+import java.util.Deque;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
 
-public class MyTreeMap<K, V> implements Map<K, V>, Iterable<K> {
+public class MyTreeMap<K, V> implements Map<K, V>, Iterable<V> {
 	
 	private Node root = null;
 	private int size = 0;
@@ -152,14 +153,47 @@ public class MyTreeMap<K, V> implements Map<K, V>, Iterable<K> {
 	
 	//ITERATOR
 	@Override
-	public Iterator<K> iterator() {
+	public Iterator<V> iterator() {
 		
-		return new RecursiveIterator();
+		return new NonRecursiveIterator();
 	}	
 	
-	public class RecursiveIterator implements Iterator<K> {
-		private List<K> list = new LinkedList<>();
-		private Queue<K> queue = new ArrayDeque<>();
+	
+	private class NonRecursiveIterator implements Iterator<V> {
+		private Deque<Node> stack = new ArrayDeque<>();
+		
+		public NonRecursiveIterator() {
+			pushOnStack(root);
+		}
+		
+		public void pushOnStack(Node node) {
+			Node current = node;
+			
+			while (current != null) {
+				stack.push(current);
+				current = current.left;
+			}
+		}
+
+		@Override
+		public boolean hasNext() {
+			return !stack.isEmpty();
+		}
+
+		@Override
+		public V next() {
+			Node node = stack.pop();
+			V value = node.value;
+			
+			pushOnStack(node.right);
+			
+			return value;
+		}
+	}
+	
+	public class RecursiveIterator implements Iterator<V> {
+		private List<V> list = new LinkedList<>();
+		private Queue<V> queue = new ArrayDeque<>();
 		
 		public RecursiveIterator() {
 			inorder(root);
@@ -172,7 +206,7 @@ public class MyTreeMap<K, V> implements Map<K, V>, Iterable<K> {
 				return;
 			}
 			
-			list.add(node.key);
+			list.add(node.value);
 			
 			preorder(node.left);
 			preorder(node.right);
@@ -187,7 +221,7 @@ public class MyTreeMap<K, V> implements Map<K, V>, Iterable<K> {
 			postorder(node.left);
 			postorder(node.right);
 			
-			list.add(node.key);
+			list.add(node.value);
 		}
 		
 		// INORDER
@@ -197,7 +231,7 @@ public class MyTreeMap<K, V> implements Map<K, V>, Iterable<K> {
 			}
 			
 			inorder(node.left);
-			list.add(node.key);
+			list.add(node.value);
 			inorder(node.right);
 		}
 
@@ -207,7 +241,7 @@ public class MyTreeMap<K, V> implements Map<K, V>, Iterable<K> {
 		}
 
 		@Override
-		public K next() {
+		public V next() {
 			return list.remove(0);
 		}
 	}

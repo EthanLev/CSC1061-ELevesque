@@ -73,6 +73,6 @@ public class TermCounter {
 		TermCounter counter = new TermCounter(url);
 		counter.processElements(paragraphs);
 		
-		counter.printCount();
+		//counter.printCount();
 	}
 }
