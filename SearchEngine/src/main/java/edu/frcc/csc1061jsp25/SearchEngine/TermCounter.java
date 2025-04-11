@@ -3,6 +3,7 @@ package edu.frcc.csc1061jsp25.SearchEngine;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import org.jsoup.nodes.Node;
 import org.jsoup.nodes.TextNode;
@@ -19,6 +20,10 @@ public class TermCounter {
 	
 	public String getLabel() {
 		return url;
+	}
+	
+	public Set<String> getKeySet() {
+		return map.keySet();
 	}
 	
 	public void add(String term, int count) {
