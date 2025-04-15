@@ -5,6 +5,7 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.Iterator;
 import java.util.Queue;
+import java.util.Stack;
 
 
 public class FileTree implements Iterable <FileNode> {
@@ -36,9 +37,22 @@ public class FileTree implements Iterable <FileNode> {
 	 * @param fileNode
 	 */
 	private void buildTree(FileNode fileNode) {
-		FileNode node = new FileNode("");
-	
+		File file = fileNode.getFile();
 		
+		if (file.isDirectory()) {
+			File[] files = file.listFiles();
+			
+			if (files != null) {
+				for (File childFile : files) {
+					FileNode childNode = new FileNode(childFile); 
+					fileNode.getChildNodes().add(childNode);
+					
+					buildTree(childNode);
+					
+					fileNode.setFileSize(fileNode.getFileSize() + childNode.getFileSize());
+				}
+			}
+		}
 	}
 	
 	/**
@@ -51,18 +65,40 @@ public class FileTree implements Iterable <FileNode> {
 	 */
 	private class DepthFirstIterator implements Iterator<FileNode> {
 		
+		private Deque<FileNode> stack = new ArrayDeque<>();
+		
 		public DepthFirstIterator() {
-
+			if (root == null) {
+				return;
+			}
+			
+			Stack<FileNode> stack1 = new Stack<>();
+			Stack<FileNode> stack2 = new Stack<>();
+			
+			stack1.push(root);
+			
+			while (!stack1.empty()) {
+				FileNode current = stack1.pop();
+				stack2.push(current);
+				
+				for (FileNode child : current.getChildNodes()) {
+					stack1.push(child);
+				}
+			}
+			
+			while(!stack2.isEmpty()) {
+				stack.push(stack2.pop());
+			}
 		}
 
 		@Override
 		public boolean hasNext() {
-			return true;
+			return !stack.isEmpty();
 		}
 		
 		@Override
 		public FileNode next() {
-			return null;
+			return stack.pop();
 		}
 	}
 	
@@ -86,18 +122,30 @@ public class FileTree implements Iterable <FileNode> {
 	 */
 	private class BreadthFirstIterator implements Iterator<FileNode> {
 		
+		private Queue<FileNode> queue = new ArrayDeque<>();
+		
 		public BreadthFirstIterator() {
-
+			if (root == null) {
+				return;
+			}
+			
+			queue.add(root);
 		}
 		
 		@Override
 		public boolean hasNext() {
-			return true;
+			return !queue.isEmpty();
 		}
 
 		@Override
 		public FileNode next() {
-			return null;
+			FileNode curr = queue.remove();
+			
+			for (FileNode childNode : curr.getChildNodes()) {
+				queue.add(childNode);
+			}
+			
+			return curr;
 		}
 		
 	}

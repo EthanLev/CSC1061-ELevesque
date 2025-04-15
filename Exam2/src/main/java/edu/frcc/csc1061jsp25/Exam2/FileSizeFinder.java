@@ -3,11 +3,12 @@ package edu.frcc.csc1061jsp25.Exam2;
 import java.io.File;
 import java.util.Iterator;
 
+
 public class FileSizeFinder {
 
 	public static void main(String[] args) {
 
-		String filePath = "C:\\Users\\ethan\\Downloads\\FileSizeTest";
+		String filePath = "C:\\Users\\Ethan\\Downloads\\FileSizeTest";
 		
 		File file = new File(filePath);
 		
