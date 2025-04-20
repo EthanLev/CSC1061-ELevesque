@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
 
-public class MyAVLTree<K, V> implements Map<K, V>, Iterable<V> {
+public class MyAVLTree<K, V> implements Map<K, V>, Iterable<edu.frcc.csc1061jsp25.MyAVLTree.MyAVLTree.Node> {
 	
 	private Node root = null;
 	private int size = 0;
@@ -212,11 +212,9 @@ public class MyAVLTree<K, V> implements Map<K, V>, Iterable<V> {
 				case 2:
 					if (balanceFactor(current.right) <= 0) {
 						// RR imbalance
-						// HOMEWORK HOMEWORK HOMEWORK HOMEWORK HOMEWORK HOMEWORK
 						balanceRR(current, parent);
 					} else {
 						// RL imbalance
-						// HOMEWORK HOMEWORK HOMEWORK HOMEWORK HOMEWORK HOMEWORK
 						balanceRL(current, parent);
 					}
 					break;
@@ -230,6 +228,9 @@ public class MyAVLTree<K, V> implements Map<K, V>, Iterable<V> {
 		Node par = gp.left;
 		Node ch = par.right;
 		
+		gp.left = par.right;
+		par.right = gp;
+		
 		if (gp == root) {
 			root = par;
 		} else {
@@ -238,14 +239,10 @@ public class MyAVLTree<K, V> implements Map<K, V>, Iterable<V> {
 			} else {
 				ggp.left = par;
 			}
-			
-			gp.left = par.right;
-			par.right = gp;
 		}	
 		
 		updateHeight(gp);
 		updateHeight(par);
-		updateHeight(ch);
 	}
 	
 	private void balanceLR(Node node, Node parent) {
@@ -253,6 +250,14 @@ public class MyAVLTree<K, V> implements Map<K, V>, Iterable<V> {
 		Node gp = node;
 		Node par = gp.left;
 		Node ch = par.right;
+		
+		// Left on parent
+		par.right = ch.left;
+		gp.left = ch.right;
+		
+		// Right on GP
+		ch.left = par;
+		ch.right = gp;
 		
 		if (gp == root) {
 			root = ch;
@@ -264,23 +269,59 @@ public class MyAVLTree<K, V> implements Map<K, V>, Iterable<V> {
 			}
 		}
 		
-		par.right = ch.left;
-		gp.left = ch.right;
-		
-		ch.left = par;
-		ch.right = gp;
-		
 		updateHeight(gp);
 		updateHeight(par);
 		updateHeight(ch);
 	}
 	
 	private void balanceRR(Node node, Node parent) {
-		// HOMEWORK HOMEWORK HOMEWORK
+		Node gp = node;
+		Node par = gp.right;
+
+		// Left on GP
+		gp.right = par.left;
+		par.left = gp;
+
+		if (gp == root) {
+			root = par;
+		} else {
+			if (parent.left == gp) {
+				parent.left = par;
+			} else {
+				parent.right = par;
+			}
+		}
+
+		updateHeight(gp);
+		updateHeight(par);
 	}
 
 	private void balanceRL(Node node, Node parent) {
-		// HOMEWORK HOMEWORK HOMEWORK
+		Node gp = node;
+		Node par = gp.right;
+		Node ch = par.left;
+
+		// Right on parent
+		par.left = ch.right;
+		ch.right = par;
+
+		// Left on GP
+		gp.right = ch.left;
+		ch.left = gp;
+
+		if (gp == root) {
+			root = ch;
+		} else {
+			if (parent.left == gp) {
+				parent.left = ch;
+			} else {
+				parent.right = ch;
+			}
+		}
+
+		updateHeight(par);
+		updateHeight(gp);
+		updateHeight(ch);
 	}
 	
 	// HOMEWORK 
