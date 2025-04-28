@@ -13,6 +13,10 @@ public abstract class Phone implements Cloneable {
         this.storage = storage;
         this.imei = imei;
     }
+	
+	public void changeIMEI(String imei) {
+		this.imei = imei;
+	}
 
 	@Override
 	public String toString() {
