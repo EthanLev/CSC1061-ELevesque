@@ -28,4 +28,13 @@ public class Song {
 	public String toString() {
 		return title + ", " + artist;
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) return true;
+		if (obj == null) return false;
+		
+		Song song = (Song) obj; // cast as song
+		return artist.equals(song.artist) && title.equals(song.title);
+	}
 }

@@ -20,8 +20,8 @@ public class MyDoubleLinkedList<E> implements List<E> {
 	 *
 	 */
 	private class Node {
-		public E data;
-		public Node next;
+		public E data; // Song
+		public Node next; 
 		public Node prev;      // Doubly
 
 		public Node(E data) {
@@ -29,20 +29,22 @@ public class MyDoubleLinkedList<E> implements List<E> {
 			this.next = null;
 			this.prev = null;     // Doubly
 		}
+		
 		@SuppressWarnings("unused")
 		public Node(E data, Node next) {
 			this.data = data;
 			this.next = next;
 			next.prev = this;    // Doubly
 		}
+		
 		public String toString() {
 			return "Node(" + data.toString() + ")";
 		}
 	}
 
-	private int size;            // keeps track of the number of elements
+	private int size;            // keeps track of the number of elements+
 	private Node head;           // reference to the first node
-	private Node tail;            // Doubly reference to the last node
+	private Node tail;           // Doubly reference to the last node
 	
 	/**
 	 * Constructor
@@ -53,7 +55,7 @@ public class MyDoubleLinkedList<E> implements List<E> {
 		size = 0;
 	}
 
-	// IMPLEMENT
+	// Adds element to end of list
 	@Override
 	public boolean add(E element) {
 		Node newNode = new Node(element);
@@ -74,7 +76,7 @@ public class MyDoubleLinkedList<E> implements List<E> {
 		return true;
 	}
 
-	// IMPLEMENT
+	// Adds element at specific index
 	@Override
 	public void add(int index, E element) {   
 		Node newNode = new Node(element);
@@ -111,6 +113,7 @@ public class MyDoubleLinkedList<E> implements List<E> {
 		throw new UnsupportedOperationException();
 	}
 
+	// Removes all elements from list
 	@Override
 	public void clear() {
 		head = null;
@@ -216,7 +219,7 @@ public class MyDoubleLinkedList<E> implements List<E> {
 		return null;
 	}
 
-	// IMPLEMENT
+	// Removes first occurance of object
 	@Override
 	public boolean remove(Object obj) {
 		Node node = head;
@@ -249,31 +252,34 @@ public class MyDoubleLinkedList<E> implements List<E> {
 		return true;
 	}
 
-	//IMPLEMENT
+	// Removes node at specific index
 	@Override
 	public E remove(int index) {
-		//TODO: FILL THIS IN!
 		E element = get(index);
-		if (index == 0) {
-			if (tail == head) {
-				tail = null;
-			}
-			head = head.next;
-			head.prev = null;
-		} else {
-			Node node = getNode(index - 1);
-			if (node.next == tail) {
-				tail = node;
-			}
-			node.next = node.next.next;
-			if (node.next != null) {
-				node.next.prev = node;
-			}
-		}
-		size--;
-		return element;
-		
-		//return null;
+
+	    if (index == 0) {
+	        if (tail == head) { // Only one element in the list
+	            head = null; // Set head to null to fix null error
+	            tail = null;
+	        } else {
+	            head = head.next;
+	            if (head != null) {
+	                head.prev = null;
+	            }
+	        }
+	    } else {
+	        Node node = getNode(index - 1);
+	        if (node.next == tail) {
+	            tail = node;
+	        }
+	        node.next = node.next.next;
+	        if (node.next != null) {
+	            node.next.prev = node;
+	        }
+	    }
+
+	    size--;
+	    return element;
 	}
 
 	@Override
@@ -290,6 +296,7 @@ public class MyDoubleLinkedList<E> implements List<E> {
 		throw new UnsupportedOperationException();
 	}
 
+	// Replaces element at index
 	@Override
 	public E set(int index, E element) {
 		Node node = getNode(index);
@@ -301,6 +308,36 @@ public class MyDoubleLinkedList<E> implements List<E> {
 	@Override
 	public int size() {
 		return size;
+	}
+	
+	// Counts nodes in list and returns int
+	public int count() {
+		int count = 0;
+		Node current = head;
+		
+		while (current != null) {
+			count++;
+			current = current.next;
+		}
+		
+		return count;
+	}
+	
+	// Reverses the linked list
+	public void reverse() {
+		Node current = head;
+		Node temp = null;
+		
+		while (current != null) {
+			temp = current.prev; // save previous node pointer
+			current.prev = current.next; // reverse prev pointer
+			current.next = temp; // reverse next pointer
+			current = current.prev; // move to next node which is now prev
+		}
+		
+		if (temp != null) {
+			head = temp.prev; // set head to last node
+		}
 	}
 
 	@Override
