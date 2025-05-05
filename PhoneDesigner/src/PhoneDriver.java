@@ -11,6 +11,14 @@ public class PhoneDriver {
 		System.out.println(fold);
 		System.out.println(bar);
 		
+		FlipModel clone = (FlipModel) flip.clone(); // Clone
+		
+		ArrayList<Character> newImei = createIMEI();
+		clone.setIMEI(newImei);
+		
+		System.out.println("Original: " + flip);
+		System.out.println("Clone: " + clone);
+		
 		// Compare flip and bar models
 		System.out.println("\nFlip Phone vs Bar Phone Comparison: " + flip.compareTo(bar));
 		
