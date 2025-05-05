@@ -32,6 +32,7 @@ public abstract class Phone implements Cloneable, Comparable<Phone> {
 		return Integer.compare(this.storage, phone.storage);
 	}
 	
+	// CLONE
 	@Override
 	public Phone clone() {
 		try {
@@ -41,6 +42,7 @@ public abstract class Phone implements Cloneable, Comparable<Phone> {
 			
 			return clone;
 		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
 			return null;
 		}
 	}
