@@ -114,15 +114,64 @@ public class MyTreeMap<K, V> implements Map<K, V>, Iterable<V> {
 	}
 
 	// HOMEWORK 
-	// Download and use TreeMapTest from D2L
-	// Copy code to own tree map
-	// Case 1: if remove is a leaf node, keep track of parent, cut left or right side of parent
-	// Case 2: if remove is one child, change child to parent
-	// Case 3: if two children
 	// Use recursive ?
 	@Override
 	public V remove(Object key) {
-		return null;
+		if (root == null) {
+	        return null; // tree is empty
+	    }
+	    
+	    Node node = root;
+	    Node parent = null;
+	    Comparable<K> k = (Comparable<K>) key; // cast
+
+	    // Search for node
+	    while (node != null) {
+	        int cmp = k.compareTo(node.key);
+	        if (cmp < 0) {
+	            parent = node;
+	            node = node.left;
+	        } else if (cmp > 0) {
+	            parent = node;
+	            node = node.right;
+	        } else {
+	            break; // Found node to remove
+	        }
+	    }
+
+	    if (node == null) {
+	        return null; // not found
+	    }
+
+	    V oldVal = node.value;
+
+	    // Case 1: if remove is a leaf node, keep track of parent, cut left or right side of parent
+	    if (node.left == null && node.right == null) {
+	        if (parent == null) {
+	            root = null; // If it's the root node
+	        } else if (parent.left == node) {
+	            parent.left = null;
+	        } else {
+	            parent.right = null;
+	        }
+
+	    // Case 2: if remove is one child, change child to parent
+	    } else if (node.left == null || node.right == null) {
+	        Node child = (node.left != null) ? node.left : node.right;
+
+	        if (parent == null) {
+	            root = child; // If it's the root
+	        } else if (parent.left == node) {
+	            parent.left = child;
+	        } else {
+	            parent.right = child;
+	        }
+	    }
+	    // Case 3: if two children
+	    
+	    
+	    size--;
+		return oldVal;
 	}
 
 	@Override
