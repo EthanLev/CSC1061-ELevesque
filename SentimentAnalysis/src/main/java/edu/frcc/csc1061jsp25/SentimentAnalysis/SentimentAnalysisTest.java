@@ -16,6 +16,8 @@ public class SentimentAnalysisTest {
 	    
 	    // User input
 	    Scanner scnr = new Scanner(System.in);
+	    int totalWords = 0;
+	    int totalSentiments = 0;
 	    
 	    while (true) {
 	        System.out.println("Enter a phrase or type END to quit");
@@ -28,11 +30,20 @@ public class SentimentAnalysisTest {
 	        // Remove punctuation, convert to lowercase, and split the words
 	        String[] words = command.replaceAll("[^a-zA-Z ]", "").toLowerCase().split("\\s+");
 	        
+	        
 	        for (String word : words) {
 				System.out.println("Processed: " + word);
 				
+				Integer sentiment = sentiments.get(word);
 				
+				if (sentiment != null) {
+					totalSentiments += sentiment;
+				} else {
+					//System.out.println("No sentiment found for word: " + word);
+				}
 			}
+	        
+	        System.out.println("Total sentiment for phrase: " + totalSentiments);
 	    }
 	    
 	    scnr.close();
@@ -51,6 +62,7 @@ public class SentimentAnalysisTest {
 				int sentiment = Integer.parseInt(parts[1]);
 				
 				sentiments.put(word, sentiment); // Add to map
+				//System.out.println("Loaded: " + word + " - " + sentiment);
 			}
 		}
 		
