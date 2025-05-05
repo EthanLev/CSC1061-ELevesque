@@ -75,7 +75,7 @@ public class MyHashMap <K, V> implements Map <K,V> {
 		
 		// Check load factor
 		// Load factor = num entries in map / num of buckets
-		int loadFactor = size()/buckets.length;
+		double loadFactor = (double) size()/buckets.length;
 		if (loadFactor > LOAD_FACTOR_THRESHOLD) { 
 			rehash();
 			bucketIndex = Math.abs(key.hashCode()) % buckets.length;
