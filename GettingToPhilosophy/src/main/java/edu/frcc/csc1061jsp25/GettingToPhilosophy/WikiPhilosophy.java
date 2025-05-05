@@ -3,6 +3,7 @@ package edu.frcc.csc1061jsp25.GettingToPhilosophy;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -47,9 +48,11 @@ public class WikiPhilosophy {
     public static void testConjecture(String destination, String source, int limit) throws IOException {
         Document doc = null;
         Connection conn = Jsoup.connect(source);
+        
         try 
         {
             doc = conn.get();
+            //System.out.println("Successfully fetched the source page: " + source);
         }
         catch (Exception e)
         {
@@ -65,26 +68,73 @@ public class WikiPhilosophy {
         for (Element para : paragraphs) {
             Iterable<Node> iter = new WikiNodeIterable(para);
             for (Node node : iter) {
-                
-                // TODO: FILL THIS IN!
+            	//System.out.println("Processing node: " + node);
             	// If this node is a text node make sure you are not within parentheses
-            	// Use stack, check for open parentheses and push it on, when closed parentheses, pop out of stack
-            	// If stack is empty, no parentheses
             	if (node instanceof TextNode) {
+            		TextNode textNode = (TextNode) node;
+            		String text = textNode.text();
             		
+            		if (insideParentheses(text)) {
+            			continue; // skip if inside parentheses
+            		}
             	}
             	
-            	// If this node has a link you can get it by accessing the href attribute in the node
-            	String link = node.attr("href");
-            	if (node.hasAttr(link)) {
+            	if (node instanceof Element) {
+            		Element element = (Element) node;
+            		String href = element.attr("href");
             		
-            	}
-            	
-            	// If the link is not null and not an empty string and does not start with a # sign 
-            	// and is not within parentheses, follow the link recursively by calling testConjecture() 
-            	// until you reach your objective or run past the limit. 
+            		if (href != null && !href.isEmpty() && !href.startsWith("#")) {
+            			String next = "https://en.wikipedia.org" + href; // make new url
+            			
+            			if (visited.contains(next)) {
+            				System.out.println("Loop. Exiting");
+            				return;
+            			}
+            			
+            			visited.add(next);
+            			System.out.println(next);
+            			
+            			// until you reach your objective
+            			if (next.equals(destination)) {
+                			System.out.println("Reached Destination - " + destination);
+                			return;
+                		}
+            			
+            			// until limit is reached
+                    	if (limit <= 0) {
+                			System.out.println("Reached limit");
+                			return;
+                		}  
+            			
+            			// follow the link recursively by calling testConjecture() 
+                		testConjecture(destination, next, limit - 1);
+                		return;
+            		}
+            	}      	
             }
-
         }
     }
+    
+    // check if the parentheses are valid (open then closed)
+    // Use stack, check for open parentheses and push it on, when closed parentheses, pop out of stack
+    private static boolean insideParentheses(String text) {
+        Stack<Character> parentheses = new Stack<>();
+        
+        for (char c : text.toCharArray()) {
+            if (c == '(') {
+                parentheses.push(c);
+            } else if (c == ')') {
+                if (!parentheses.isEmpty()) { 
+                    parentheses.pop();
+                } else {
+                    // if stack is empty and a ')' is found, it means an unmatched closing parenthesis
+                    return false;
+                }
+            }
+        }
+
+     // If stack is empty, no parentheses
+        return parentheses.isEmpty();
+    }
 }
+
