@@ -30,6 +30,10 @@ public class Database {
                     System.out.println("File created: " + PERSON_FILE);
                 }
             }            
+            
+            fout = new FileOutputStream(file, true);
+			writer = new PrintWriter(fout);
+			
         } catch (IOException e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
@@ -45,20 +49,11 @@ public class Database {
 	public void writePerson(Person person) {
 		
 		if (file.exists()) {
-			try {
-				fout = new FileOutputStream(file, true);
-				writer = new PrintWriter(fout);
-				
-				writer.write(person.getClass().getSimpleName() + "\n");
-				writer.write(person.toString() + "\n");
-				
-				writer.close();
-				System.out.println(person.getName() + "'s information has been written to file");
-				
-			} catch (FileNotFoundException e) {
-				System.out.println("File not found: " + e.getMessage());
-	            e.printStackTrace();  
-			}
+			writer.write(person.getClass().getSimpleName() + "\n");
+			writer.write(person.toString() + "\n");
+			
+			writer.close();
+			System.out.println(person.getName() + "'s information has been written to file");
 		}
 	} 
 	
@@ -77,6 +72,7 @@ public class Database {
 			System.exit(-1);
 		} while (input.hasNextLine()) {
 			String line = input.nextLine();
+			if (!input.hasNextLine()) break;
 			people.add(new Person(line,"","",""));
 			System.out.println(line);
 		}

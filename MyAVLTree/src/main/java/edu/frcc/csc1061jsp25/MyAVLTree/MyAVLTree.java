@@ -179,6 +179,7 @@ public class MyAVLTree<K, V> implements Map<K, V>, Iterable<edu.frcc.csc1061jsp2
 		
 		if (node.left == null && node.right == null) {
 			System.out.println("Both right and left nodes are null");
+			return 0;
 		} else if (node.left == null) {
 			balanceFactor = node.height;
 		} else if (node.right == null) {
@@ -222,108 +223,106 @@ public class MyAVLTree<K, V> implements Map<K, V>, Iterable<edu.frcc.csc1061jsp2
 		}
 	}
 	
-	private void balanceLL(Node node, Node parent) {
-		Node ggp = parent;
-		Node gp = node;
-		Node par = gp.left;
-		Node ch = par.right;
-		
-		gp.left = par.right;
-		par.right = gp;
-		
-		if (gp == root) {
-			root = par;
-		} else {
-			if (ggp.right == gp) {
-				ggp.right = par;
-			} else {
-				ggp.left = par;
-			}
-		}	
-		
-		updateHeight(gp);
-		updateHeight(par);
+	private void balanceLL(Node gp, Node ggp) {
+	    Node p = gp.left;
+
+	    gp.left = p.right;
+	    p.right = gp;
+
+	    if (gp == root) {
+	        root = p;
+	    } else {
+	        if (ggp.left == gp) {
+	            ggp.left = p;
+	        } else {
+	            ggp.right = p;
+	        }
+	    }
+
+	    updateHeight(gp);
+	    updateHeight(p);
 	}
+
+	private void balanceLR(Node gp, Node ggp) {
+	    Node p = gp.left;
+	    Node c = p.right;
+
+	    p.right = c.left;
+	    gp.left = c.right;
+
+	    c.left = p;
+	    c.right = gp;
+
+	    if (gp == root) {
+	        root = c;
+	    } else {
+	        if (ggp.left == gp) {
+	            ggp.left = c;
+	        } else {
+	            ggp.right = c;
+	        }
+	    }
+
+	    updateHeight(p);
+	    updateHeight(gp);
+	    updateHeight(c);
+	}
+
+	private void balanceRR(Node gp, Node ggp) {
+	    Node p = gp.right;
+
+	    gp.right = p.left;
+	    p.left = gp;
+
+	    if (gp == root) {
+	        root = p;
+	    } else {
+	        if (ggp.left == gp) {
+	            ggp.left = p;
+	        } else {
+	            ggp.right = p;
+	        }
+	    }
+
+	    updateHeight(gp);
+	    updateHeight(p);
+	}
+
+	private void balanceRL(Node gp, Node ggp) {
+	    if (gp == null || gp.right == null) {
+	        return;
+	    }
+
+	    Node p = gp.right;  
+	    Node c = p.left;  
+	    
+	    if (c == null) {
+	        return;
+	    }
+
+	    p.left = c.right;  
+	    gp.right = c.left; 
+
+	    c.right = p;  
+	    c.left = gp; 
 	
-	private void balanceLR(Node node, Node parent) {
-		Node ggp = parent;
-		Node gp = node;
-		Node par = gp.left;
-		Node ch = par.right;
-		
-		// Left on parent
-		par.right = ch.left;
-		gp.left = ch.right;
-		
-		// Right on GP
-		ch.left = par;
-		ch.right = gp;
-		
-		if (gp == root) {
-			root = ch;
-		} else {
-			if (ggp.left == par) {
-				ggp.left = ch;
-			} else {
-				ggp.right = ch;
-			}
-		}
-		
-		updateHeight(gp);
-		updateHeight(par);
-		updateHeight(ch);
-	}
-	
-	private void balanceRR(Node node, Node parent) {
-		Node gp = node;
-		Node par = gp.right;
+	    if (gp == root) {
+	        root = c;
+	    } else {
+	        if (ggp != null) {
+	            if (ggp.left == gp) {
+	                ggp.left = c;
+	            } else {
+	                ggp.right = c;
+	            }
+	        }
+	    }
 
-		// Left on GP
-		gp.right = par.left;
-		par.left = gp;
-
-		if (gp == root) {
-			root = par;
-		} else {
-			if (parent.left == gp) {
-				parent.left = par;
-			} else {
-				parent.right = par;
-			}
-		}
-
-		updateHeight(gp);
-		updateHeight(par);
+	    updateHeight(p);
+	    updateHeight(gp);
+	    updateHeight(c);
 	}
 
-	private void balanceRL(Node node, Node parent) {
-		Node gp = node;
-		Node par = gp.right;
-		Node ch = par.left;
-
-		// Right on parent
-		par.left = ch.right;
-		ch.right = par;
-
-		// Left on GP
-		gp.right = ch.left;
-		ch.left = gp;
-
-		if (gp == root) {
-			root = ch;
-		} else {
-			if (parent.left == gp) {
-				parent.left = ch;
-			} else {
-				parent.right = ch;
-			}
-		}
-
-		updateHeight(par);
-		updateHeight(gp);
-		updateHeight(ch);
-	}
-	
 	// HOMEWORK 
 	// Download and use TreeMapTest from D2L
 	// Copy code to own tree map

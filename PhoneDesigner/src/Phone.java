@@ -31,6 +31,21 @@ public abstract class Phone implements Cloneable, Comparable<Phone> {
 		// Cache is equal, compare storage
 		return Integer.compare(this.storage, phone.storage);
 	}
+	
+	// CLONE
+	@Override
+	public Phone clone() {
+		try {
+			Phone clone = (Phone) super.clone();
+			
+			clone.imei = new ArrayList<>(imei);
+			
+			return clone;
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 
 	@Override
 	public String toString() {
