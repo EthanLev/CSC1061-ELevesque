@@ -24,7 +24,7 @@ public class CalculatorTest {
 	@Disabled("Division functionality not available yet")
 	@DisplayName("Division Test")
 	void testDivision() {
-		assertEquals(4, calc.divide(2, 8), "Division does not work");
+		assertEquals(4, calc.divide(2, 8), "Divide does not work");
 	}
 	
 	@Test
