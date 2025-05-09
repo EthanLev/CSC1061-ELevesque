@@ -5,11 +5,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>edu.frcc.csc1061jsp25</groupId>
-  <artifactId>Exam3</artifactId>
+  <artifactId>Exam4</artifactId>
   <version>0.0.1-SNAPSHOT</version>
 
-  <name>Exam3</name>
-  <description>A simple Exam3.</description>
+  <name>Exam4</name>
+  <description>A simple Exam4.</description>
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
 

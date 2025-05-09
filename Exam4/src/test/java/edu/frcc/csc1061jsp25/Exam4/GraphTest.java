@@ -1,5 +1,4 @@
-package edu.frcc.csc1061jsp25.Exam3;
-
+package edu.frcc.csc1061jsp25.Exam4;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,8 +26,6 @@ public class GraphTest {
 		graph.printEdges();
 		
 		System.out.println("Minimum Spanning Tree:");
-		graph.findMinimumSpanningTree().printEdges();		
+		//graph.findMinimumSpanningTree().printEdges();		
 	}
-
-
 }

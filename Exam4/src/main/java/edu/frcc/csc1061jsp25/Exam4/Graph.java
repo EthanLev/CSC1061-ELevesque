@@ -1,4 +1,4 @@
-package edu.frcc.csc1061jsp25.Exam3;
+package edu.frcc.csc1061jsp25.Exam4;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -6,13 +6,12 @@ import java.util.Collections;
 import java.util.Deque;
 import java.util.List;
 
-
 public class Graph<E> {
 	public List<Vertex> vertices = new ArrayList<>();
 	
 	private class Vertex {
-		private E elem;
-		private List<Edge> neighbors = new ArrayList<>();
+		private E elem; // name/value or vertex
+		private List<Edge> neighbors = new ArrayList<>(); // list of edges/roads connected to this vertex
 		
 		public Vertex (E elem) {
 			this.elem = elem;
@@ -41,8 +40,8 @@ public class Graph<E> {
 
 	
 	private class Edge implements Comparable<Edge> {
-		private Vertex s;
-		private Vertex d;
+		private Vertex s; // source/start
+		private Vertex d; // destination
 		private int weight;
 
 		public Edge(Vertex s, Vertex d, int weight) {
@@ -134,14 +133,69 @@ public class Graph<E> {
 	** vertices in the pre-order depth-first traversal.
 	*/
 	public List<Vertex> dfs(Vertex root) {
-		return null;
+		List<Vertex> visited = new ArrayList<>(); // List of visited
+		Deque<Vertex> stack = new ArrayDeque<>(); // Stack for which vertex ti visit next
+		
+		stack.push(root); // Start at root
+		
+		while (!stack.isEmpty()) {
+			Vertex current = stack.pop(); // Get current vertex
+			
+			// if vertex hasn't been visited
+			if (!visited.contains(current)) {
+				visited.add(current); // mark as visited
+				
+				List<Vertex> children = getChildNodes(current);
+				
+				
+			}
+		}
+		
+		return visited;
 	}
 
 	/* TODO: Implement the BFS algorithm for a graph. It should return a list 
 	** of all the vertices in the breadth-first traversal.
 	*/
 	public List<E> bfs() {
-		return null;
+		// List to store the result
+	    List<E> result = new ArrayList<>();
+	    
+	    // Queue to control the order of visiting vertices (FIFO behavior)
+	    Deque<Vertex> queue = new ArrayDeque<>();
+	    
+	    // List to keep track of visited vertices
+	    List<Vertex> visited = new ArrayList<>();
+
+	    // If there are no vertices, return empty list
+	    if (vertices.isEmpty()) {
+	        return result;
+	    }
+
+	    // Start from the first vertex in the list
+	    Vertex start = vertices.get(0);
+	    queue.offer(start);
+
+	    while (!queue.isEmpty()) {
+	        // Get the vertex from the front of the queue
+	        Vertex current = queue.poll();
+
+	        // If we haven't visited this vertex yet
+	        if (!visited.contains(current)) {
+	            // Mark it as visited
+	            visited.add(current);
+
+	            // Add the element (key) to the result
+	            result.add(current.getKey());
+
+	            // Add all child nodes to the queue
+	            for (Vertex neighbor : getChildNodes(current)) {
+	                queue.offer(neighbor);
+	            }
+	        }
+	    }
+
+	    return result;
 	}
 	
 
