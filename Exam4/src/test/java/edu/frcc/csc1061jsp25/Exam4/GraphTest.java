@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GraphTest {
-
 	public static void main(String[] args) {
 		List<Integer> vertices = new ArrayList<>();
 		for (int i = 0; i < 6; i++) {
@@ -25,7 +24,9 @@ public class GraphTest {
 		System.out.println("Original Graph:");
 		graph.printEdges();
 		
+		System.out.println();
+		
 		System.out.println("Minimum Spanning Tree:");
-		//graph.findMinimumSpanningTree().printEdges();		
+		graph.findMinimumSpanningTree().printEdges();		
 	}
 }

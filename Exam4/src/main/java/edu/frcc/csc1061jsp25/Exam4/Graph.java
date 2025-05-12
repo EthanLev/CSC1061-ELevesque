@@ -4,7 +4,9 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Deque;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Graph<E> {
 	public List<Vertex> vertices = new ArrayList<>();
@@ -38,7 +40,6 @@ public class Graph<E> {
 		}
 	}
 
-	
 	private class Edge implements Comparable<Edge> {
 		private Vertex s; // source/start
 		private Vertex d; // destination
@@ -60,6 +61,7 @@ public class Graph<E> {
 		}
 	}
 
+
 	public Graph(List<Vertex> vertices) {
 		for (Vertex vertex : vertices) {
 			addVertex(new Vertex(vertex.getKey()));
@@ -73,6 +75,7 @@ public class Graph<E> {
 		createAdjacencyLists(edges);
 	}
 
+	
 	public boolean addVertex(Vertex vertex) {
 		if (!vertices.contains(vertex)) {
 			vertices.add(vertex);
@@ -80,7 +83,6 @@ public class Graph<E> {
 		} else {
 			return false;
 		}
-
 	}
 
 	public boolean addEdge(Edge edge) {
@@ -102,6 +104,7 @@ public class Graph<E> {
 		}
 		return null;
 	}
+	
 	private void createAdjacencyLists(E[][] edges) {
 		for (int i = 0; i < edges.length; i++) {
 			addEdge(new Edge(findVertex(edges[i][0]), findVertex(edges[i][1]), (int)edges[i][2]));
@@ -128,6 +131,7 @@ public class Graph<E> {
 		return childNodes;
 	}
 	
+	
 	/* TODO: Implement the DFS algorithm for a graph either recursively
 	** or iteratively using a stack. It should return a list of all the 
 	** vertices in the pre-order depth-first traversal.
@@ -145,9 +149,9 @@ public class Graph<E> {
 			if (!visited.contains(current)) {
 				visited.add(current); // mark as visited
 				
-				List<Vertex> children = getChildNodes(current);
-				
-				
+				for (Vertex neighbor : this.getChildNodes(current)) {
+					stack.push(neighbor); // add to stack 
+				}
 			}
 		}
 		
@@ -158,52 +162,93 @@ public class Graph<E> {
 	** of all the vertices in the breadth-first traversal.
 	*/
 	public List<E> bfs() {
-		// List to store the result
-	    List<E> result = new ArrayList<>();
-	    
-	    // Queue to control the order of visiting vertices (FIFO behavior)
-	    Deque<Vertex> queue = new ArrayDeque<>();
-	    
-	    // List to keep track of visited vertices
-	    List<Vertex> visited = new ArrayList<>();
+	    Deque<Vertex> queue = new ArrayDeque<>(); // Queue to track vertices
+	    List<E> visited = new ArrayList<>(); // List to keep track of visited vertices
 
-	    // If there are no vertices, return empty list
 	    if (vertices.isEmpty()) {
-	        return result;
+	        return visited;
 	    }
-
-	    // Start from the first vertex in the list
-	    Vertex start = vertices.get(0);
-	    queue.offer(start);
+	    
+	    Vertex root = vertices.get(0); // Start from root
+	    queue.add(root);
 
 	    while (!queue.isEmpty()) {
-	        // Get the vertex from the front of the queue
-	        Vertex current = queue.poll();
+	        Vertex current = queue.poll(); // take vertex from front of queue
 
-	        // If we haven't visited this vertex yet
 	        if (!visited.contains(current)) {
-	            // Mark it as visited
-	            visited.add(current);
+	            visited.add(current.getKey()); // mark visited
 
-	            // Add the element (key) to the result
-	            result.add(current.getKey());
-
-	            // Add all child nodes to the queue
-	            for (Vertex neighbor : getChildNodes(current)) {
-	                queue.offer(neighbor);
+	            for (Vertex neighbor : this.getChildNodes(current)) {
+	                queue.add(neighbor); // add all neighbors to queue
 	            }
 	        }
 	    }
 
-	    return result;
+	    return visited; 
 	}
 	
-
 	/* TODO: Create a spanning tree using Kruskal's Algorithm and return it. 
 	** The spanning tree will be a new graph
 	*/
 	public Graph<E> findMinimumSpanningTree() {
+		List<Edge> edges = new ArrayList<>(); 
 		
-		return null;
+		for (Vertex v : vertices) {
+			edges.addAll(v.neighbors);
+		}
+		
+		List<Edge> sortedEdges = edges;
+		Collections.sort(sortedEdges); // Sort edges by weight
+		
+		Graph<E> tree = new Graph<>(new ArrayList<>()); // empty graph
+		
+		UnionFind uf = new UnionFind(vertices.size()); // Instantiate union find to check for cycles/loops in graph
+		
+		for (Vertex v : vertices) {
+			tree.addVertex(tree.new Vertex(v.getKey())); // Add new vertices to tree
+		}
+		
+		for (Edge edge : sortedEdges) {
+			int src = vertices.indexOf(edge.s); // source index
+			int des = vertices.indexOf(edge.d); // destination index
+			
+			// if source and destionation are in different lists means no cycle
+			if (uf.find(src) != uf.find(des)) {
+				// add new edge with same source, destination, adn weight to tree
+				tree.addEdge(new Edge(tree.vertices.get(src), tree.vertices.get(des), edge.weight)); 
+				
+				uf.union(src, des);
+			}
+		}
+		
+		return tree;
+	}
+	
+	private class UnionFind {
+		private int[] parent;
+
+	    public UnionFind(int size) {
+	        parent = new int[size];  // initialize parent array
+	        for (int i = 0; i < size; i++) {
+	            parent[i] = i;  // set each vertex is its own parent 
+	        }
+	    }
+
+	    // find the root of the set 
+	    public int find(int i) {
+	        if (parent[i] != i) {
+	            parent[i] = find(parent[i]);  
+	        }
+	        return parent[i];
+	    }
+
+	    // union the sets containing elements i and j
+	    public void union(int i, int j) {
+	        int rootI = this.find(i);
+	        int rootJ = this.find(j);
+	        if (rootI != rootJ) {
+	            parent[rootI] = rootJ;  
+	        }
+	    }
 	}
 }
